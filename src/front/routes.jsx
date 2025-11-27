@@ -6,6 +6,10 @@ import { Home } from "./pages/Home.jsx";
 import { Contact } from "./pages/Contact.jsx";
 import { ContactCard } from "./components/ContactCard.jsx";
 import { AddContact } from "./pages/AddContact.jsx";
+import { Characters } from "./pages/Characters.jsx";
+import { Starships } from "./pages/Starships.jsx";
+import { Planets } from "./pages/Planets.jsx";
+import { Contacts } from "./pages/Contacts.jsx";
 
 
 export const router = createBrowserRouter(
@@ -20,6 +24,10 @@ export const router = createBrowserRouter(
         <Route path="/contact" element={<Contact/>} />
         <Route path="/edit-contact/:id" element={<AddContact/>} />
         <Route path= "/add-contact" element={<AddContact/>} />
+        <Route path= "/characters" element={<Characters/>} />
+        <Route path= "/starships" element={<Starships/>} />
+        <Route path= "/planets" element={<Planets/>} />
+        <Route path= "/contacts" element={<Contacts/>} />
         </Route>
 
     )
