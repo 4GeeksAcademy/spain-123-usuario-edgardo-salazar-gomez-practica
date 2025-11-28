@@ -4,7 +4,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-sm bg-body-tertiary">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">STAR<br /> WARS</Link>
+        <Link className="navbar-brand" to="/">STAR<br/> WARS</Link>
 
         <button
           className="navbar-toggler"
