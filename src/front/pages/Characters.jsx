@@ -7,7 +7,7 @@ import useGlobalReducer  from "../hooks/useGlobalReducer.jsx";
 export const Characters = () => {
     const swapiHost = "https://www.swapi.tech/api"
     const navige = useNavigate();
-    const {store, dispatch} = useGlobalReducer();
+    const {dispatch} = useGlobalReducer();
     const [characters, setCharacters] = useState([])
 
     const handleDetails = (personaje) => {
@@ -43,6 +43,10 @@ export const Characters = () => {
     }
 
     useEffect(() => {
+     dispatch({
+         type: 'character_details',
+         payload: {} 
+     })   
         getCharacters()
     }, [])
 
