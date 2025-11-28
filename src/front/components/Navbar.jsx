@@ -32,7 +32,7 @@ export const Navbar = () => {
               <Link className="nav-link" to="/planets">Planets</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contacts">Contacts</Link>
+              <Link className="nav-link" to="/contact">Contacts</Link>
             </li>
 
           </ul>
@@ -40,7 +40,7 @@ export const Navbar = () => {
           <form className="d-flex">
             <div className="dropdown">
               <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown button
+                Favorites
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><Link className="dropdown-item" to="#">Action</Link></li>

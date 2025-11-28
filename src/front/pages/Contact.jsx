@@ -64,10 +64,10 @@ export const Contact = () => {
         <ContactCard key={c.id} contact={c} onDelete={() => openDeleteModal(c.id)} />
       ))}
 
-      {/* Modal de confirmación */}
+
       <Modal
         show={showModal}
-        message="¿Seguro que deseas eliminar este contacto?"
+        message="¿Eliminar este contacto?"
         onConfirm={deleteContact}
         onCancel={() => setShowModal(false)}
       />
