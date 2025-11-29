@@ -22,8 +22,8 @@ export const Starships = () => {
     };
 
     // Placeholder remoto si no hay imagen
-    const handleError = (e) => {
-        e.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+    const handleError = (event) => {
+        event.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
     };
 
     useEffect(() => {

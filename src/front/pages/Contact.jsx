@@ -5,31 +5,33 @@ import { Modal } from "../components/Modal";
 
 export const Contact = () => {
   const [contacts, setContacts] = useState([]);
-
-  // Estado para modal
   const [showModal, setShowModal] = useState(false);
   const [contactToDelete, setContactToDelete] = useState(null);
 
-  // Cargar contactos desde API
   const getContacts = async () => {
     try {
       const res = await fetch(
         "https://playground.4geeks.com/contact/agendas/contacto_familia/contacts"
       );
       const data = await res.json();
-      setContacts(data.contacts);
+
+      // Ajustamos para usar `name` en lugar de full_name
+      const formattedContacts = data.contacts.map((c) => ({
+        ...c,
+        name: c.name
+      }));
+
+      setContacts(formattedContacts);
     } catch (error) {
       console.error("Error fetching contacts:", error);
     }
   };
 
-  // Abrir modal
   const openDeleteModal = (id) => {
     setContactToDelete(id);
     setShowModal(true);
   };
 
-  // Confirmar eliminación
   const deleteContact = async () => {
     try {
       await fetch(
@@ -40,7 +42,6 @@ export const Contact = () => {
       setShowModal(false);
       setContactToDelete(null);
       getContacts(); // refrescar lista
-
     } catch (error) {
       console.error("Delete error:", error);
     }
@@ -53,17 +54,23 @@ export const Contact = () => {
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="text-dark">Contact List</h1>
-
+        <h1 className="text-light">Contact List</h1>
         <Link to="/add-contact" className="btn btn-success">
           Add new contact
         </Link>
       </div>
 
-      {contacts.map((c) => (
-        <ContactCard key={c.id} contact={c} onDelete={() => openDeleteModal(c.id)} />
-      ))}
-
+      {contacts.length === 0 ? (
+        <p className="text-light">No contacts available.</p>
+      ) : (
+        contacts.map((c) => (
+          <ContactCard
+            key={c.id}
+            contact={c}
+            onDelete={() => openDeleteModal(c.id)}
+          />
+        ))
+      )}
 
       <Modal
         show={showModal}

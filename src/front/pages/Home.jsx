@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
-
+import starWarsImage from "../assets/img/StarWars.jpg";
 
 export const Home = () => {
 
@@ -10,17 +10,22 @@ export const Home = () => {
 
 
 	useEffect(() => {
-		
+
 	}, [])
 
 	return (
 		<div className="text-center mt-5">
-			<h1 className="display -4"> Star wars</h1>
+			<h1 className="display-4"> Star wars</h1>
 			<p className="lead">
-				<Link to="/contact" className="btn btn-primary me-2">Contact List</Link>
-				<Link to="/add-contact" className="btn btn-success">Add Contact</Link>
+				<img
+					src={starWarsImage}
+					alt="Star Wars"
+					className="img-fluid mb-4"
+					style={{ maxWidth: "400px" }}
+				/>
+
 			</p>
-			
+
 		</div>
 	);
 }; 

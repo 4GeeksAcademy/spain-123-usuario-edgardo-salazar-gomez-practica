@@ -17,13 +17,13 @@ export const ContactCard = ({ contact, onDelete }) => {
 
       <div className="col-7 col-md-8">
         <h5 className="mb-1">{contact.name}</h5>
-        <p className="mb-1 text-muted">
+        <p className="mb-1 text-light">
           <i className="fas fa-envelope me-2"></i> {contact.email}
         </p>
-        <p className="mb-1 text-muted">
+        <p className="mb-1 text-light">
           <i className="fas fa-phone me-2"></i> {contact.phone}
         </p>
-        <p className="mb-0 text-muted">
+        <p className="mb-1 text-light">
           <i className="fas fa-map-marker-alt me-2"></i> {contact.address}
         </p>
       </div>

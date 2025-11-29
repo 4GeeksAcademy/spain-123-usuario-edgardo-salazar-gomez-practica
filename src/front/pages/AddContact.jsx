@@ -49,7 +49,7 @@ export const AddContact = () => {
 
   const bodyToSend = id
     ? form // PUT NO necesita agenda_slug
-    : { ...form, full_name: form.name, agenda_slug: "contacto_familia"}; // POST SÍ
+    : { ...form, name: form.name, agenda_slug: "contacto_familia"}; // POST SÍ
 
   await fetch(url, {
     method,

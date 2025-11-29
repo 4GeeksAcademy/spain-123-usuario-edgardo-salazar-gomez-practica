@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-sm bg-body-tertiary">
+    <nav className="navbar navbar-expand-sm starwars-navbar">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">STAR<br/> WARS</Link>
+        <Link to="/" className="navbar-brand d-flex align-items-center">
+  <img
+    src="https://lumiere-a.akamaihd.net/v1/images/sw_logo_stacked_2x-52b4f6d33087_7ef430af.png?region=0,0,586,254"
+    alt="Star Wars Logo"
+    className="sw-logo"
+  />
+</Link>
 
         <button
           className="navbar-toggler"

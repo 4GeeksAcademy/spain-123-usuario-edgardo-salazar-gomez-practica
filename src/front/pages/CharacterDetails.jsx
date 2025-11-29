@@ -1,6 +1,30 @@
 import { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
+const renderDetails = (details) => {
+    const info = {
+        height: "Altura",
+        mass: "Peso",
+        hair_color: "Color de pelo",
+        skin_color: "Color de piel",
+        eye_color: "Color de ojos",
+        birth_year: "Año de nacimiento",
+        gender: "Género"
+    };
+
+    let elementos = [];
+
+    for (const key in info) {
+        elementos.push(
+            <li key={key}>
+                <strong>{info[key]}:</strong> {details[key]}
+            </li>
+        );
+    }
+
+    return elementos;
+};
+
 export const CharacterDetails = () => {
     const { store } = useGlobalReducer();
     const [personajeDetails, setPersonajeDetails] = useState(null);
@@ -21,8 +45,8 @@ export const CharacterDetails = () => {
         }
     };
 
-    const handleError = (e) => {
-        e.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+    const handleError = (event) => {
+        event.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
     };
 
     useEffect(() => {
@@ -35,10 +59,8 @@ export const CharacterDetails = () => {
         <div className="container mt-4">
             <h1 className="text-center mb-4">Detalles del Personaje</h1>
 
-            {/* LAYOUT: FOTO IZQUIERDA / DETALLES DERECHA */}
             <div className="row align-items-start">
-                
-                {/* FOTO */}
+
                 <div className="col-12 col-md-4 text-center mb-4">
                     <img
                         alt={store.currentCharacter.name}
@@ -54,18 +76,11 @@ export const CharacterDetails = () => {
                     />
                 </div>
 
-                {/* DETALLES */}
                 <div className="col-12 col-md-8">
                     <h2>{store.currentCharacter.name}</h2>
 
-                    <ul style={{ listStyle: "none", padding: 0 }}>
-                        <li><strong>Altura:</strong> {personajeDetails.height}</li>
-                        <li><strong>Peso:</strong> {personajeDetails.mass}</li>
-                        <li><strong>Color de pelo:</strong> {personajeDetails.hair_color}</li>
-                        <li><strong>Color de piel:</strong> {personajeDetails.skin_color}</li>
-                        <li><strong>Color de ojos:</strong> {personajeDetails.eye_color}</li>
-                        <li><strong>Año de nacimiento:</strong> {personajeDetails.birth_year}</li>
-                        <li><strong>Género:</strong> {personajeDetails.gender}</li>
+                    <ul className="character-list">
+                        {renderDetails(personajeDetails)}
                     </ul>
                 </div>
             </div>
