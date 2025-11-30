@@ -7,7 +7,7 @@ import { Contact } from "./pages/Contact.jsx";
 import { ContactCard } from "./components/ContactCard.jsx";
 import { AddContact } from "./pages/AddContact.jsx";
 import { Characters } from "./pages/Characters.jsx";
-import { Starships } from "./pages/Starships.jsx";
+import { StarShips } from "./pages/StarShips.jsx";
 import { Planets } from "./pages/Planets.jsx";
 import { Contacts } from "./pages/Contacts.jsx";
 import { CharacterDetails } from "./pages/CharacterDetails.jsx";
@@ -29,7 +29,7 @@ export const router = createBrowserRouter(
         <Route path="/edit-contact/:id" element={<AddContact/>} />
         <Route path= "/add-contact" element={<AddContact/>} />
         <Route path= "/characters" element={<Characters/>} />
-        <Route path= "/starships" element={<Starships/>} />
+        <Route path= "/starships" element={<StarShips/>} />
         <Route path= "/planets" element={<Planets/>} />
         <Route path= "/contacts" element={<Contacts/>} />
         <Route path= "/Character-details" element={<CharacterDetails/>} />

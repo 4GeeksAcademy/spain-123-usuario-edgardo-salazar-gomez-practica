@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
-// Función para transformar las keys de la API a texto amigable
+
 const renderDetails = (details) => {
   const info = {
     name: "Nombre",
@@ -67,7 +67,7 @@ export const PlanetDetails = () => {
         <div className="col-12 col-md-4 text-center mb-4">
           <img
             alt={store.currentPlanet.name}
-            src={`https://starwars-visualguide.com/assets/img/planets/${store.currentPlanet.uid}.jpg`}
+            src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/planets/${store.currentPlanet.uid}.jpg?raw=true`}
             onError={handleError}
             style={{
               width: "100%",

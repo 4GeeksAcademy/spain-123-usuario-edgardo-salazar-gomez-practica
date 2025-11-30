@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
-// Función para transformar las keys de la API a texto amigable
 const renderDetails = (details) => {
     const info = {
         model: "Modelo",
@@ -18,17 +17,11 @@ const renderDetails = (details) => {
         consumables: "Consumibles"
     };
 
-    let elementos = [];
-
-    for (const key in info) {
-        elementos.push(
-            <li key={key}>
-                <strong>{info[key]}:</strong> {details[key]}
-            </li>
-        );
-    }
-
-    return elementos;
+    return Object.keys(info).map((key) => (
+        <li key={key}>
+            <strong>{info[key]}:</strong> {details[key]}
+        </li>
+    ));
 };
 
 export const StarshipDetails = () => {
@@ -36,18 +29,8 @@ export const StarshipDetails = () => {
     const [starshipDetails, setStarshipDetails] = useState(null);
 
     const getStarshipDetails = async () => {
-        if (!store.currentStarship.url) {
-            console.log("No hay URL de la nave en el store");
-            return;
-        }
-
         try {
             const response = await fetch(store.currentStarship.url);
-
-            if (!response.ok) {
-                console.log("Error", response.status, response.statusText);
-                return;
-            }
 
             const data = await response.json();
             setStarshipDetails(data.result.properties);
@@ -57,12 +40,13 @@ export const StarshipDetails = () => {
     };
 
     const handleError = (event) => {
-        event.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+        event.target.src =
+            "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
     };
 
     useEffect(() => {
-        getStarshipDetails();
-    }, []);
+        if (store.currentStarship.url) getStarshipDetails();
+    }, [store.currentStarship.url]);
 
     if (!starshipDetails) return <p className="text-center mt-4">Cargando...</p>;
 
@@ -74,20 +58,19 @@ export const StarshipDetails = () => {
 
                 <div className="col-12 col-md-4 text-center mb-4">
                     <img
-                        alt={store.CurrentStarship.name}
+                        alt={store.currentStarship.name}
                         src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/starships/${store.currentStarship.uid}.jpg?raw=true`}
                         onError={handleError}
                         style={{
                             width: "100%",
-                            maxWidth: "200px",
-                            height: "200px",
+                            maxWidth: "300px",
+                            height: "300px",
                             objectFit: "cover",
                             borderRadius: "10px",
                         }}
                     />
                 </div>
 
-               
                 <div className="col-12 col-md-8">
                     <h2>{store.currentStarship.name}</h2>
 
@@ -95,7 +78,6 @@ export const StarshipDetails = () => {
                         {renderDetails(starshipDetails)}
                     </ul>
                 </div>
-
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 export const ContactCard = ({ contact, onDelete }) => {
   
    return (
@@ -9,7 +8,7 @@ export const ContactCard = ({ contact, onDelete }) => {
 
       <div className="col-3 col-md-2">
         <img
-          src="https://randomuser.me/api/portraits/men/36.jpg"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPB50H3JFzsSt3vnRklIVmETVWl6SDZTSnA&s"
           className="img-fluid rounded-circle"
           alt="profile"
         />

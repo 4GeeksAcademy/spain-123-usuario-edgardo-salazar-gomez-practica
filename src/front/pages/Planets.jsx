@@ -3,17 +3,12 @@ import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Planets = () => {
-    const { actions } = useGlobalReducer();
+    const { dispatch } = useGlobalReducer();
     const [planets, setPlanets] = useState([]);
 
     const getPlanets = async () => {
         try {
             const response = await fetch("https://www.swapi.tech/api/planets");
-            if (!response.ok) {
-                console.log("Error:", response.status, response.statusText);
-                return;
-            }
-
             const data = await response.json();
             setPlanets(data.results);
         } catch (error) {
@@ -21,7 +16,6 @@ export const Planets = () => {
         }
     };
 
-    // Placeholder remoto si no hay imagen
     const handleError = (e) => {
         e.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
     };
@@ -52,7 +46,8 @@ export const Planets = () => {
                                 <Link
                                     to="/planet-details"
                                     className="btn btn-primary mt-auto"
-                                    onClick={() => actions.setCurrentPlanet(planet)}
+                                    onClick={() => dispatch({ type: "planet_details", payload: planet })
+                                    }
                                 >
                                    Details
                                 </Link>

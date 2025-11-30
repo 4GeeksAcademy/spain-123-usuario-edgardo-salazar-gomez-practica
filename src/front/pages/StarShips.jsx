@@ -2,18 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
-export const Starships = () => {
-    const { actions } = useGlobalReducer();
+export const StarShips = () => {
+    const { dispatch } = useGlobalReducer();
     const [starships, setStarships] = useState([]);
 
     const getStarships = async () => {
         try {
             const response = await fetch("https://www.swapi.tech/api/starships");
-            if (!response.ok) {
-                console.log("Error:", response.status, response.statusText);
-                return;
-            }
-
             const data = await response.json();
             setStarships(data.results);
         } catch (error) {
@@ -21,9 +16,9 @@ export const Starships = () => {
         }
     };
 
-    // Placeholder remoto si no hay imagen
     const handleError = (event) => {
-        event.target.src = "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+        event.target.src =
+            "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
     };
 
     useEffect(() => {
@@ -52,9 +47,14 @@ export const Starships = () => {
                                 <Link
                                     to="/starship-details"
                                     className="btn btn-primary mt-auto"
-                                    onClick={() => actions.setCurrentStarship(ship)}
+                                    onClick={() =>
+                                        dispatch({
+                                            type: "starship_details",
+                                            payload: ship,
+                                        })
+                                    }
                                 >
-                                   Details
+                                    Details
                                 </Link>
                             </div>
                         </div>

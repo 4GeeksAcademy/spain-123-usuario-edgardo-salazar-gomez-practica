@@ -1,16 +1,25 @@
 import { Link } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Navbar = () => {
+
+  const { store, dispatch } = useGlobalReducer();
+
+  const removeFavorite = (uid) => {
+    dispatch({ type: "remove_favorite", payload: uid });
+  };
+
   return (
     <nav className="navbar navbar-expand-sm starwars-navbar">
       <div className="container-fluid">
+
         <Link to="/" className="navbar-brand d-flex align-items-center">
-  <img
-    src="https://lumiere-a.akamaihd.net/v1/images/sw_logo_stacked_2x-52b4f6d33087_7ef430af.png?region=0,0,586,254"
-    alt="Star Wars Logo"
-    className="sw-logo"
-  />
-</Link>
+          <img
+            src="https://lumiere-a.akamaihd.net/v1/images/sw_logo_stacked_2x-52b4f6d33087_7ef430af.png?region=0,0,586,254"
+            alt="Star Wars Logo"
+            className="sw-logo"
+          />
+        </Link>
 
         <button
           className="navbar-toggler"
@@ -34,27 +43,52 @@ export const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/starships">Starships</Link>
             </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/planets">Planets</Link>
             </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/contact">Contacts</Link>
             </li>
 
           </ul>
 
-          <form className="d-flex">
-            <div className="dropdown">
-              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Favorites
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><Link className="dropdown-item" to="#">Action</Link></li>
-                <li><Link className="dropdown-item" to="#">Another action</Link></li>
-                <li><Link className="dropdown-item" to="#">Something else here</Link></li>
-              </ul>
-            </div>
-          </form>
+         
+          <div className="dropdown ">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Favorites ({store.favorites.length})
+            </button>
+
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+
+              {store.favorites.length === 0 && (
+                <li className="dropdown-item text-muted">No favorites yet</li>
+              )}
+
+              {store.favorites.map((fav) => (
+                <li
+                  key={fav.uid}
+                  className="dropdown-item d-flex justify-content-between align-items-center"
+                >
+                  {fav.name}
+
+                  <i
+                    className="fas fa-trash text-danger "
+                    style={{ cursor: "pointer" }}
+                    onClick={() => removeFavorite(fav.uid)}
+                  ></i>
+                </li>
+              ))}
+
+            </ul>
+          </div>
 
         </div>
       </div>

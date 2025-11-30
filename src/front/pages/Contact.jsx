@@ -15,7 +15,7 @@ export const Contact = () => {
       );
       const data = await res.json();
 
-      // Ajustamos para usar `name` en lugar de full_name
+    
       const formattedContacts = data.contacts.map((c) => ({
         ...c,
         name: c.name

@@ -69,7 +69,7 @@ export const AddContact = () => {
       <form onSubmit={handleSubmit} className="border p-4 rounded shadow">
 
         <div className="mb-3">
-          <label className="form-label">Full name</label>
+          <label className="form-label">Name</label>
           <input
             type="text"
             className="form-control"

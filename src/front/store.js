@@ -24,6 +24,10 @@ export default function storeReducer(store, action = {}) {
     case "character_details":
       return { ...store, currentCharacter: action.payload };
 
+    case "planet_details":
+    return { ...store, currentPlanet: action.payload };
+      
+
     case "starship_details":
     return { ...store, currentStarship: action.payload };
     
