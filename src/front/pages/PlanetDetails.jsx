@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
-
 const renderDetails = (details) => {
   const info = {
     name: "Nombre",
@@ -15,17 +14,16 @@ const renderDetails = (details) => {
     terrain: "Terreno",
   };
 
-  let elementos = [];
-  for (const key in info) {
+  return Object.keys(info).map((key) => {
     if (details[key] !== undefined) {
-      elementos.push(
+      return (
         <li key={key}>
           <strong>{info[key]}:</strong> {details[key]}
         </li>
       );
     }
-  }
-  return elementos;
+    return null;
+  });
 };
 
 export const PlanetDetails = () => {
@@ -33,18 +31,21 @@ export const PlanetDetails = () => {
   const [planetDetails, setPlanetDetails] = useState(null);
 
   const getPlanetDetails = async () => {
-    try {
-      const response = await fetch(store.currentPlanet.url);
-      if (!response.ok) {
-        console.log("Error", response.status, response.statusText);
-        return;
-      }
+    // Petición segura sin try/catch
+    const response = await fetch(store.currentPlanet.url)
+      .catch((error) => {
+        console.log("Error de red:", error);
+        return null;
+      });
 
-      const data = await response.json();
-      setPlanetDetails(data.result.properties);
-    } catch (error) {
-      console.log("Error fetching planet details:", error);
+    // Validar errores
+    if (!response || !response.ok) {
+      console.log("Error al obtener datos del planeta.");
+      return;
     }
+
+    const data = await response.json();
+    setPlanetDetails(data.result.properties);
   };
 
   const handleError = (event) => {
@@ -53,7 +54,9 @@ export const PlanetDetails = () => {
   };
 
   useEffect(() => {
-    if (store.currentPlanet.url) getPlanetDetails();
+    if (store.currentPlanet.url) {
+      getPlanetDetails();
+    }
   }, [store.currentPlanet.url]);
 
   if (!planetDetails)

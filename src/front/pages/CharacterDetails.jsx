@@ -12,17 +12,11 @@ const renderDetails = (details) => {
         gender: "Género"
     };
 
-    let elementos = [];
-
-    for (const key in info) {
-        elementos.push(
-            <li key={key}>
-                <strong>{info[key]}:</strong> {details[key]}
-            </li>
-        );
-    }
-
-    return elementos;
+    return Object.keys(info).map((key) => (
+        <li key={key}>
+            <strong>{info[key]}:</strong> {details[key]}
+        </li>
+    ));
 };
 
 export const CharacterDetails = () => {
@@ -30,19 +24,20 @@ export const CharacterDetails = () => {
     const [personajeDetails, setPersonajeDetails] = useState(null);
 
     const getCharacterDetails = async () => {
-        try {
-            const response = await fetch(store.currentCharacter.url);
+        const response = await fetch(store.currentCharacter.url)
+            .catch((error) => {
+                console.log("Error de red:", error);
+                return null;
+            });
 
-            if (!response.ok) {
-                console.log("Error", response.status, response.statusText);
-                return;
-            }
-
-            const data = await response.json();
-            setPersonajeDetails(data.result.properties);
-        } catch (error) {
-            console.log("Error fetching character details:", error);
+        // Si no hay respuesta o viene con error
+        if (!response || !response.ok) {
+            console.log("Error al obtener datos del personaje.");
+            return;
         }
+
+        const data = await response.json();
+        setPersonajeDetails(data.result.properties);
     };
 
     const handleError = (event) => {
@@ -71,7 +66,7 @@ export const CharacterDetails = () => {
                             maxWidth: "300px",
                             height: "300px",
                             objectFit: "cover",
-                            borderRadius: "10px",
+                            borderRadius: "10px"
                         }}
                     />
                 </div>

@@ -41,7 +41,7 @@ export const StarshipDetails = () => {
 
     const handleError = (event) => {
         event.target.src =
-            "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+            "https://files.slack.com/files-tmb/T0BFXMWMV-F0A0U9PCNHX-bd49729586/big-placeholder_480.jpg";
     };
 
     useEffect(() => {

@@ -72,17 +72,17 @@ export const Navbar = () => {
                 <li className="dropdown-item text-muted">No favorites yet</li>
               )}
 
-              {store.favorites.map((fav) => (
+              {store.favorites.map((favorit) => (
                 <li
-                  key={fav.uid}
+                  key={favorit.uid}
                   className="dropdown-item d-flex justify-content-between align-items-center"
                 >
-                  {fav.name}
+                  {favorit.name}
 
                   <i
                     className="fas fa-trash text-danger "
                     style={{ cursor: "pointer" }}
-                    onClick={() => removeFavorite(fav.uid)}
+                    onClick={() => removeFavorite(favorit.uid)}
                   ></i>
                 </li>
               ))}

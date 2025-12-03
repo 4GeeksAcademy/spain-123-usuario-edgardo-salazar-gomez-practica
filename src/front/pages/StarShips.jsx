@@ -31,7 +31,7 @@ export const StarShips = () => {
 
             <div className="row">
                 {starships.map((ship) => (
-                    <div className="col-12 col-md-4 mb-4" key={ship.uid}>
+                    <div className="col-12 col-md-3 mb-3" key={ship.uid}>
                         <div className="card h-100 shadow-sm">
                             <img
                                 src={`https://github.com/breatheco-de/swapi-images/blob/master/public/images/starships/${ship.uid}.jpg?raw=true`}
