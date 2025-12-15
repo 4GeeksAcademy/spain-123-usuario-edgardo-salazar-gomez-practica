@@ -12,6 +12,7 @@ class Users(db.Model):
     is_admin = db.Column(db.Boolean(), nullable=False)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
+    
 
     def __repr__(self):
         return f'<User: {self.id} - {self.email}>'
@@ -88,7 +89,8 @@ class Posts(db.Model):
     date = db.Column(db.Date, nullable=False)
     image_url = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-
+    user_to =db.relationship('Users', foreign_keys=[user_id], backref=db.backref('post_to', lazy='select'))
+    
     def __repr__(self):
         return f'<Post: {self.id}>'
     
@@ -108,6 +110,7 @@ class Medias(db.Model):
     type = db.Column(db.Enum("image", "video", name="media_type"), nullable=False)
     url = db.Column(db.String(255), nullable=False)   
     post_id = db.Column(db.Integer,  db.ForeignKey("posts.id"), nullable=False)
+    post_to =db.relationship('Posts', foreign_keys=[post_id], backref=db.backref('media_to', lazy='select'))
 
     def __repr__(self):
         return f'<Media: {self.id}>'
@@ -123,7 +126,9 @@ class Medias(db.Model):
 class CharacterFavorites(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_to = db.relationship('Users', foreign_keys=[user_id], backref=db.backref('character_favorites_to', lazy='select'))
     character_id = db.Column(db.Integer, db.ForeignKey("characters.id"), nullable=False)
+    character_to = db.relationship('Characters', foreign_keys=[character_id], backref=db.backref('user_favorite_to', lazy='select'))
 
 
     def serialize(self):
@@ -135,8 +140,9 @@ class CharacterFavorites(db.Model):
 class PlanetFavorites(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_to = db.relationship('Users', foreign_keys=[user_id], backref=db.backref('Planet_favorites_to', lazy='select'))
     planet_id = db.Column(db.Integer, db.ForeignKey("planets.id"), nullable=False)
-
+    planet_to = db.relationship('Planets', foreign_keys=[planet_id], backref=db.backref('planet_favorite_to', lazy='select'))
 
     def serialize(self):
         return {
@@ -147,8 +153,9 @@ class PlanetFavorites(db.Model):
 class Followers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     follower_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    follower_to = db.relationship('Users', foreign_keys=[follower_id], backref=db.backref('follower_to', lazy='select'))
     following_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-
+    following_to = db.relationship('Users', foreign_keys=[following_id], backref=db.backref('following_to', lazy="select"))
 
     def serialize(self):
         return {
@@ -160,8 +167,9 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_to = db.relationship('Users', foreign_keys=[user_id], backref=db.backref('comments_to', lazy='select'))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
-
+    post_to = db.relationship('Posts', foreign_keys=[post_id], backref=db.backref('user_comment_to', lazy='select'))
 
     def serialize(self):
         return {
