@@ -10,8 +10,8 @@ class Users(db.Model):
     password = db.Column(db.String(255), nullable=False)
     is_active = db.Column(db.Boolean(), nullable=False)
     is_admin = db.Column(db.Boolean(), nullable=False)
-    first_name = db.Column(db.String(80), nullable=False)
-    last_name = db.Column(db.String(80), nullable=False)
+    first_name = db.Column(db.String(80), nullable=True)
+    last_name = db.Column(db.String(80), nullable=True)
     
 
     def __repr__(self):
