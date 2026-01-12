@@ -29,12 +29,13 @@ db.init_app(app)
 #Others configurations
 setup_admin(app)# add the admin
 setup_commands(app)# add the admin
-
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
 # Setup the Flask-JWT-Extended extension
-app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "super-secret-key")
+jwt = JWTManager(app)
 # Handle/serialize errors like a JSON object
+
 
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
