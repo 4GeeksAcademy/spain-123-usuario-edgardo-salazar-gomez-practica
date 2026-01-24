@@ -17,19 +17,42 @@ export const initialStore = () => {
         background: null,
       },
     ],
-  };
-};
+    token: '',
+    current_user: {},
+    isLogged:false,
+    alert: {
+      text: '',
+      color: '',
+      display: false
+    }
+  }
+}
+
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
+    
+     case "handle_alert":
+      return { ...store, alert: action.payload};
+
+
+    case "handle_isLogged":
+      return { ...store, isLogged: action.payload};
+
+    case "handle_user":
+      return { ...store, current_user: action.payload};
+
+    case "handle_token":
+      return { ...store, token: action.payload};
+
     case "character_details":
-      return { ...store, currentCharacter: action.payload };
+      return { ...store, currentCharacter: action.payload};
 
     case "planet_details":
-    return { ...store, currentPlanet: action.payload };
+    return { ...store, currentPlanet: action.payload};
       
 
     case "starship_details":
-    return { ...store, currentStarship: action.payload };
+    return { ...store, currentStarship: action.payload};
     
       case "add_favorite":
       return {

@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ContactCard } from "../components/ContactCard";
 import { Modal } from "../components/Modal";
+import { protect } from "../services/auth.js";
+
 
 export const Contact = () => {
   const [contacts, setContacts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [contactToDelete, setContactToDelete] = useState(null);
+
+  const handle_whoiam = () => {
+    protect()  // ejecutamos
+  }
 
   const getContacts = async () => {
     try {
@@ -53,6 +59,7 @@ export const Contact = () => {
 
   return (
     <div className="container mt-4">
+      <span onClick={handle_whoiam} className="btn btn-primary">Who I am</span>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="text-light">Contact List</h1>
         <Link to="/add-contact" className="btn btn-success">

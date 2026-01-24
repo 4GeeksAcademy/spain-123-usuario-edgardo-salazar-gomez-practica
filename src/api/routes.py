@@ -35,20 +35,24 @@ def login():
               'is_ative': user['is_active'],
               'is_admin': user['is_admin']}
     response_body['message'] = 'User logged, ok'
+    response_body['results'] = user 
     response_body['access_token'] = create_access_token(identity=email, additional_claims=claims)
     return response_body, 200
 
 
 @api.route("/protected", methods=["GET"])
-@jwt_required()
+@jwt_required()  
 def protected():
+    response_body = {} 
     # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-    additional_claims=claims = get_jwt()  #Los datos adiconales
+    current_user = get_jwt_identity()  #devuelve elidentity email
+    additional_claims= get_jwt()  #Los datos adiconales
     
     print(current_user)
     print(additional_claims['user_id'])
-    return jsonify(logged_in_as=current_user), 200
+    response_body['message'] = "Autorizado para ver esta información"
+    response_body['results'] = current_user
+    return response_body, 200
 
 
 @api.route('/hello', methods=['POST', 'GET'])
