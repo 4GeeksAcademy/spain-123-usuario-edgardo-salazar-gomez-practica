@@ -1,13 +1,17 @@
-import React, { useState } from "react"
-import { Signup } from "../services/auth.js'"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { signup } from "../services/auth.js"
 
-const signup = () => {
+export const Signup = () => {
 
   const [formData, setFormData] =
    useState({email: "",
              password: "",
              first_name: "",
-             last_name: ""})
+             last_name: "",
+             is_active: true,
+             is_admin:false})
 
   const handleChange = (event) => {
     setFormData({
@@ -21,10 +25,10 @@ const signup = () => {
 
     const result = await signup(formData)
     if (!result) {
-      alert("Error creando usuario")
+      alert("No se pudo crear el usuario")
       return
     }
-    alert(result.message)
+    alert(`${result.message}`)
     console.log("Usuario creado:", result)
   }
 
@@ -63,4 +67,4 @@ const signup = () => {
     </div>
   )
 }
-export default Signup
+

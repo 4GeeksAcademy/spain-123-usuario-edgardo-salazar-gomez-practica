@@ -32,7 +32,7 @@ def login():
     
     user = row.serialize()
     claims = {'user_id': user['id'],
-              'is_ative': user['is_active'],
+              'is_active': user['is_active'],
               'is_admin': user['is_admin']}
     response_body['message'] = 'User logged, ok'
     response_body['results'] = user 

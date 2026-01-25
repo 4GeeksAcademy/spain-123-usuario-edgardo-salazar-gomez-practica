@@ -8,6 +8,10 @@ export const Navbar = () => {
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
 
+  const handleRegistro = () =>{
+     navigate('/signup')
+  }
+
   const handleLogin = () => {
         
     if (store.isLogged){
@@ -42,7 +46,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-sm starwars-navbar">
+    <nav className="navbar navbar-expand-sm starwars-navbar ">
       <div className="container-fluid">
 
         <Link to="/" className="navbar-brand d-flex align-items-center">
@@ -88,7 +92,7 @@ export const Navbar = () => {
          </ul>
 
          
-          <div className="dropdown ">
+          <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
               type="button"
@@ -121,7 +125,8 @@ export const Navbar = () => {
               ))}
 
             </ul>
-            <span onClick={handleLogin} className='btn btn-warning'>{store.isLogged ? 'Logout' : 'Login'}</span>
+            <span onClick={handleLogin} className='btn btn-warning ms-2'>{store.isLogged ? 'Logout' : 'Login'}</span>
+            <span onClick={handleRegistro} className='btn btn-warning ms-2'>Registro</span>    
           </div>
 
         </div>

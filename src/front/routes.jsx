@@ -14,7 +14,7 @@ import { CharacterDetails } from "./pages/CharacterDetails.jsx";
 import { StarshipDetails } from "./pages/StarshipDetails.jsx";
 import { PlanetDetails } from "./pages/PlanetDetails.jsx";
 import { Login } from "./pages/Login.jsx";
-import { Signup } from "./pages/signup.jsx";
+import { Signup } from "./pages/Signup.jsx"
 
 
 

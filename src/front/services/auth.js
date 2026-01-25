@@ -43,23 +43,28 @@ export const protect = async () => {
 
 }
 
-export const Signup = async (dataToSend) => {
-    const url = `${host_proyect25}/api/users`
-
+export const signup = async (dataToSend) => {
+  const url = `${host_proyect25}/api/users`
+  try{
     const options = {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+        "Content-Type": "application/json"
         },
         body: JSON.stringify(dataToSend)
-    }
+        }
+    
+  const response = await fetch(url, options)
+  if (!response.ok) {
+    const errorText = await response.text()
+   console.error("Error backend:", errorText)
+   return false
+   }
 
-    const response = await fetch(url, options)
-
-    if (!response.ok) {
-        console.log("Error creando usuario")
-        return false
-    }
-    const data = await response.json()
-    return data
+  const data = await response.json()
+  return data
+  }catch (error) {
+  console.error("Fetch error:", error)
+  return false
+  }
 }
