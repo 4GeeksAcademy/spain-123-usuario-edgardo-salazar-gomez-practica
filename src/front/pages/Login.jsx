@@ -58,6 +58,8 @@ export const Login = () => {
         display: true
       }
     })
+    setEmail('')
+    setPassword('')
     // 6. Navegar al componente dashboard del usuario enviar (jumbotron)
     navigate('/')
   }

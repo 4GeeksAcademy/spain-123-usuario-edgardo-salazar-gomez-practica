@@ -126,7 +126,9 @@ export const Navbar = () => {
 
             </ul>
             <span onClick={handleLogin} className='btn btn-warning ms-2'>{store.isLogged ? 'Logout' : 'Login'}</span>
+            { ! store.isLogged  &&(
             <span onClick={handleRegistro} className='btn btn-warning ms-2'>Registro</span>    
+            )}
           </div>
 
         </div>

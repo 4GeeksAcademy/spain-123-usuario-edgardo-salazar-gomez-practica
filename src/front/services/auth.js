@@ -45,14 +45,14 @@ export const protect = async () => {
 
 export const signup = async (dataToSend) => {
   const url = `${host_proyect25}/api/users`
-  try{
-    const options = {
+  
+  const options = {
         method: "POST",
         headers: {
         "Content-Type": "application/json"
         },
         body: JSON.stringify(dataToSend)
-        }
+  }
     
   const response = await fetch(url, options)
   if (!response.ok) {
@@ -63,8 +63,4 @@ export const signup = async (dataToSend) => {
 
   const data = await response.json()
   return data
-  }catch (error) {
-  console.error("Fetch error:", error)
-  return false
   }
-}
