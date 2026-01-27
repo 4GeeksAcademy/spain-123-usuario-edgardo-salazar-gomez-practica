@@ -2,30 +2,30 @@ import React from 'react';  // 0.- Importamos React
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
-
 //. Creo el componente
 export const Navbar = () => {
+
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
 
-  const handleRegistro = () =>{
-     navigate('/signup')
+  const handleRegistro = () => {
+    navigate('/signup')
   }
 
   const handleLogin = () => {
-        
-    if (store.isLogged){
+
+    if (store.isLogged) {
       //Estoy logueado
       // 1. Borrar el token en el localStorage
       localStorage.removeItem('token')
       // 2. Borrar el token en el store 
-      dispatch({type: 'handle_token', payload: ''})
+      dispatch({ type: 'handle_token', payload: '' })
       // 3. Borrar los datos del usuario en el stora / opcional localStorage
-      dispatch({type: 'handle_user', payload: {} })
+      dispatch({ type: 'handle_user', payload: {} })
       // 4. Setar en false el isLoggen en el store
-       dispatch({type: 'handle_isLogged', payload: false })
-       navigate('/')  // Si nos estamos desloguiando vamos al Home
-    }else{
+      dispatch({ type: 'handle_isLogged', payload: false })
+      navigate('/')  // Si nos estamos desloguiando vamos al Home
+    } else {
       // estoy deslogueado
       // 1. que ponga el Alert en d-none
       dispatch({
@@ -35,11 +35,11 @@ export const Navbar = () => {
           color: '',
           display: false
         }
-     })
-     // 2. que navege al componente Login
-     navigate('/login')
-   }
-  }  
+      })
+      // 2. que navege al componente Login
+      navigate('/login')
+    }
+  }
 
   const removeFavorite = (uid) => {
     dispatch({ type: "remove_favorite", payload: uid });
@@ -71,27 +71,26 @@ export const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-         
-          { store.isLogged ?    // Para hacer invisible la opciones del menu antes de logiarse
-          <>
-            <li className="nav-item">
-              <Link className="nav-link" to="/characters">Characters</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/starships">Starships</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/planets">Planets</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">Contacts</Link>
-            </li>
-          </>  
-          : ''
-          } 
-         </ul>
 
-         
+            {store.isLogged ?    // Para hacer invisible la opciones del menu antes de logiarse
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/characters">Characters</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/starships">Starships</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/planets">Planets</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/contact">Contacts</Link>
+                </li>
+              </>
+              : ''
+            }
+          </ul>
+
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -126,8 +125,8 @@ export const Navbar = () => {
 
             </ul>
             <span onClick={handleLogin} className='btn btn-warning ms-2'>{store.isLogged ? 'Logout' : 'Login'}</span>
-            { ! store.isLogged  &&(
-            <span onClick={handleRegistro} className='btn btn-warning ms-2'>Registro</span>    
+            {!store.isLogged && (
+              <span onClick={handleRegistro} className='btn btn-warning ms-2'>Registro</span>
             )}
           </div>
 

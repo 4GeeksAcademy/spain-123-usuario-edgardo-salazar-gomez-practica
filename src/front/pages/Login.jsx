@@ -15,54 +15,54 @@ export const Login = () => {
   // 1.2 Vincular el estado con el 'value' del input
   // 1.3 Capturar el evento onChange
   // 1.4 En la función que captura el onChange cambiar el valor del estado
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ]  = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   //const [ iAgree, setIAgree ] = useState(false);
 
-  const handleEmail = (event) => {setEmail(event.target.value)}
-  const handlePassword = (event) => {setPassword(event.target.value)}
- //const handleIAgree = (event) => {setIAgree(event.target.checked)}
+  const handleEmail = (event) => { setEmail(event.target.value) }
+  const handlePassword = (event) => { setPassword(event.target.value) }
+  //const handleIAgree = (event) => {setIAgree(event.target.checked)}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const dataToSend = {email, password};
-    const result = await login (dataToSend) // hacer el login apuntando al back
-    if (!result) {
-      handleReset()
-      return
+
+    const dataToSend = { email, password };
+    const result = await login(dataToSend);
+
+    if (!result || !result.access_token) {
+      handleReset();
+      return;
     }
-    console.log('result:', result);
-  
-   const response ={ok: true}
-   if (!response.ok){
-    handleReset()
-      return
-   }
-  
-  console.log('result:', result)
-    // 1. Guardar el token en el localStorage()
-    localStorage.setItem('token', result.access_token)
-    // 2. Guradar el token en el store (contexto)
-    dispatch({type: 'handle_token', payload: result.access_token})
-    // 3. Guardar los datos del usuario en el store (contexto) / opcional localStorage()
-    dispatch({type: 'handle_user', payload: result.results})
-    // 4. Setear en true el isLogged en el store
-    dispatch({type: 'handle_isLogged', payload: true})
-    
-    // 5. Cambiar el valor del store.alert para dar la bienvenida
+
+    // 1. Guardar token en localStorage
+    localStorage.setItem("token", result.access_token);
+
+    // 2. Guardar token en el store
+    dispatch({ type: "handle_token", payload: result.access_token });
+
+    // 3. Guardar usuario en el store
+    dispatch({ type: "handle_user", payload: result.results });
+
+    // 4. Marcar como logueado
+    dispatch({ type: "handle_isLogged", payload: true });
+
+    // 5. Mostrar alerta de bienvenida
     dispatch({
-      type: 'handle_alert',
+      type: "handle_alert",
       payload: {
-        text: 'Bienvenido',
-        color: 'info',
+        text: "Bienvenido",
+        color: "info",
         display: true
       }
-    })
-    setEmail('')
-    setPassword('')
-    // 6. Navegar al componente dashboard del usuario enviar (jumbotron)
-    navigate('/')
-  }
+    });
+
+    // 6. Limpiar inputs
+    setEmail("");
+    setPassword("");
+
+    // 7. Redirigir
+    navigate("/");
+  };
 
   const handleReset = () => {
     setEmail('');
@@ -89,12 +89,12 @@ export const Login = () => {
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
             <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                value={email} onChange={handleEmail}/>
+              value={email} onChange={handleEmail} />
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
             <input type="password" className="form-control" id="exampleInputPassword1"
-                value={password} onChange={handlePassword}/>
+              value={password} onChange={handlePassword} />
           </div>
           {/*<div className="mb-3 form-check">
             <input type="checkbox" className="form-check-input" id="exampleCheck1"
